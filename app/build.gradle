@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        flatDir {
+            dirs 'libs'
+        }
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.user.obligatorio.robotica.nxt_safetypack_user"
+        minSdkVersion 21
+        multiDexEnabled true
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+final ANDROID_SUPPORT_VERSION = '27.1.0'
+final BULLET_VERSION = 'e5044b53df'
+final BUTTERKNIFE_VERSION = '8.8.1'
+final BIGBANG_VERSION = '0.1.54'
+final DAGGER_VERSION = '2.11'
+final DART_VERSION = '2.0.2'
+final FRAGMENTARGS_VERSION = '3.0.2'
+final LOMBOK_VERSION = '1.16.18'
+final MATERIAL_DIALOGS_VERSION = '0.9.6.0'
+final STREAM_VERSION = '1.1.8'
+final TIMBER_VERSION = '4.6.1'
+final TRACEUR_VERSION = '273cc7d582'
+
+dependencies {
+    annotationProcessor "com.f2prateek.dart:dart-processor:${DART_VERSION}"
+    annotationProcessor "com.f2prateek.dart:henson-processor:${DART_VERSION}"
+    annotationProcessor "com.github.tbroyer.bullet:bullet-compiler:${BULLET_VERSION}"
+    annotationProcessor "com.hannesdorfmann.fragmentargs:processor:${FRAGMENTARGS_VERSION}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+    annotationProcessor "org.projectlombok:lombok:${LOMBOK_VERSION}"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.afollestad.material-dialogs:core:${MATERIAL_DIALOGS_VERSION}"
+    implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.annimon:stream:${STREAM_VERSION}"
+    implementation "com.f2prateek.dart:dart:${DART_VERSION}"
+    implementation "com.f2prateek.dart:henson:${DART_VERSION}"
+    implementation "com.github.tbroyer.bullet:bullet:${BULLET_VERSION}"
+    implementation "com.github.xmartlabs:Traceur:${TRACEUR_VERSION}"
+    implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
+    implementation "com.hannesdorfmann.fragmentargs:annotation:${FRAGMENTARGS_VERSION}"
+    implementation "com.hannesdorfmann.fragmentargs:bundler-parceler:${FRAGMENTARGS_VERSION}"
+    implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
+    implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
+    implementation "com.xmartlabs.bigbang:core:${BIGBANG_VERSION}"
+    implementation "com.xmartlabs.bigbang:ui:${BIGBANG_VERSION}"
+
+    provided "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    provided "org.projectlombok:lombok:${LOMBOK_VERSION}"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
