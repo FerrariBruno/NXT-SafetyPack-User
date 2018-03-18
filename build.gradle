@@ -17,8 +17,17 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://maven.google.com' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://dl.bintray.com/xmartlabs/Android-Base-Project" }
+        maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
+        google()
+        maven { url "https://jitpack.io" }
     }
 }
 
