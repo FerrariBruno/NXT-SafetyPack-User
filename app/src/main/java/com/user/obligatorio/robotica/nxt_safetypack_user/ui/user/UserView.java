@@ -1,4 +1,4 @@
-package com.user.obligatorio.robotica.nxt_safetypack_user.ui;
+package com.user.obligatorio.robotica.nxt_safetypack_user.ui.user;
 
 import com.xmartlabs.bigbang.ui.mvp.MvpView;
 

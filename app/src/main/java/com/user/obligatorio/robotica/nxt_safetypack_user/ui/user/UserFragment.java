@@ -1,4 +1,4 @@
-package com.user.obligatorio.robotica.nxt_safetypack_user.ui;
+package com.user.obligatorio.robotica.nxt_safetypack_user.ui.user;
 
 import android.support.annotation.NonNull;
 import android.view.animation.AlphaAnimation;

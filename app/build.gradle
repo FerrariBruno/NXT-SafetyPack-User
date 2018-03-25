@@ -24,9 +24,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 final ANDROID_SUPPORT_VERSION = '27.1.0'
+final BLUETOOTHSPP_VERSION = '1.0.0'
 final BULLET_VERSION = 'e5044b53df'
 final BUTTERKNIFE_VERSION = '8.8.1'
 final BIGBANG_VERSION = '0.1.54'
@@ -49,6 +54,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.afollestad.material-dialogs:core:${MATERIAL_DIALOGS_VERSION}"
+    implementation "com.akexorcist:bluetoothspp:${BLUETOOTHSPP_VERSION}"
     implementation "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"
