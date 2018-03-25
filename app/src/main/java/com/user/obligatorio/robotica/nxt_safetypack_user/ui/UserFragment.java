@@ -100,9 +100,11 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
 
   void stopBlinkingLeftSignal() {
     buttonLeftSignal.clearAnimation();
+    isLeftSignalBlinking = false;
   }
 
   void stopBlinkingRightSignal() {
     buttonRightSignal.clearAnimation();
+    isRightButtonBlinking = false;
   }
 }
