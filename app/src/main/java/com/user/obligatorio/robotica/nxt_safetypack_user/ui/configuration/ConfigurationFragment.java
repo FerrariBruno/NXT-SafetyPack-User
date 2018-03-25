@@ -59,19 +59,12 @@ public class ConfigurationFragment extends BaseMvpFragment<ConfigurationView, Co
     startActivityForResult(intent, BluetoothState.REQUEST_ENABLE_BT);
   }
 
-  @Override
-  public void goToUserActivity() {
-    Intent intent = Henson.with(getContext())
-        .gotoUserActivity()
-        .build();
-    startActivity(intent);
-  }
-
   public void onActivityResult(int requestCode, int resultCode, @NonNull Intent data) {
     if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
-      if (resultCode == Activity.RESULT_OK)
+      if (resultCode == Activity.RESULT_OK) {
         configurationPresenter.connect(data);
-        configurationPresenter.handleDeviceConnection();
+        goToUserActivity();
+      }
     } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
       if (resultCode == Activity.RESULT_OK) {
         configurationPresenter.setupService();
@@ -82,5 +75,12 @@ public class ConfigurationFragment extends BaseMvpFragment<ConfigurationView, Co
             Toast.LENGTH_SHORT).show();
       }
     }
+  }
+
+  private void goToUserActivity() {
+    Intent intent = Henson.with(getContext())
+        .gotoUserActivity()
+        .build();
+    startActivity(intent);
   }
 }

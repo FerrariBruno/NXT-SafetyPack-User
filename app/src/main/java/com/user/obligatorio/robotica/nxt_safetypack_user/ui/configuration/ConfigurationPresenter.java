@@ -36,13 +36,6 @@ public class ConfigurationPresenter extends BaseMvpPresenter<ConfigurationView> 
     }
   }
 
-  void handleDeviceConnection() {
-    if (bluetoothController.isConnectedToDevice()) {
-      Optional.ofNullable(getView())
-          .ifPresent(ConfigurationView::goToUserActivity);
-    }
-  }
-
   boolean isBluetoothEnabled() {
     return bluetoothController.isBluetoothEnabled();
   }

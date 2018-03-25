@@ -30,10 +30,6 @@ public class BluetoothController {
     return bluetoothSPP.isBluetoothEnabled();
   }
 
-  public boolean isConnectedToDevice() {
-    return bluetoothSPP.getConnectedDeviceName() != null;
-  }
-
   public boolean isServiceAvailable() {
     return bluetoothSPP.isServiceAvailable();
   }

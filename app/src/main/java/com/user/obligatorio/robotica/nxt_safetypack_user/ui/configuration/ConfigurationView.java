@@ -8,5 +8,4 @@ import com.xmartlabs.bigbang.ui.mvp.MvpView;
 
 public interface ConfigurationView extends MvpView {
   void askToEnableBluetooth();
-  void goToUserActivity();
 }
