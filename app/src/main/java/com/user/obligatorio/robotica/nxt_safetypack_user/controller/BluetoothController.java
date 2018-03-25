@@ -32,6 +32,10 @@ public class BluetoothController {
     bluetoothSPP.connect(data);
   }
 
+  public String getConnectedDeviceName() {
+    return bluetoothSPP.getConnectedDeviceName();
+  }
+
   public boolean isBluetoothEnabled() {
     return bluetoothSPP.isBluetoothEnabled();
   }

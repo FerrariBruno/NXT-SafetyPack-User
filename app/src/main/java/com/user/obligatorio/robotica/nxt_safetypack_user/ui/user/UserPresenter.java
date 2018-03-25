@@ -54,6 +54,10 @@ public class UserPresenter extends BaseMvpPresenter<UserView> {
     shouldRightSignalBlink = !shouldRightSignalBlink;
   }
 
+  String getConnectedDeviceName() {
+    return bluetoothController.getConnectedDeviceName();
+  }
+
   void stopBluetooth() {
     bluetoothController.stopBluetooth();
   }

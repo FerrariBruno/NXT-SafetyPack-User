@@ -5,6 +5,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.user.obligatorio.robotica.nxt_safetypack_user.R;
@@ -26,6 +27,8 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
   private static final float ANIMATION_FROM_ALPHA = 0.5f;
   private static final int ANIMATION_TO_ALPHA = 1;
 
+  @BindView(R.id.connectedTo)
+  TextView textViewConnectedTo;
   @BindView(R.id.leftSignalButton)
   ImageButton buttonLeftSignal;
   @BindView(R.id.rightSignalButton)
@@ -33,6 +36,14 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
 
   @Inject
   UserPresenter userPresenter;
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    textViewConnectedTo.setText(String.format("%s: %s",
+        getString(R.string.connected_to),
+        userPresenter.getConnectedDeviceName()));
+  }
 
   @Override
   public void onDestroy() {
