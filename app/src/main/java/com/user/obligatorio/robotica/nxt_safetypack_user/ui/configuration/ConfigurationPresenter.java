@@ -27,7 +27,7 @@ public class ConfigurationPresenter extends BaseMvpPresenter<ConfigurationView> 
 
   void startBluetoothConnection() {
     if (bluetoothController.isBluetoothEnabled()) {
-      if (bluetoothController.isServiceAvailable()) {
+      if (!bluetoothController.isServiceAvailable()) {
         bluetoothController.startBluetoothConnection();
       }
     } else {

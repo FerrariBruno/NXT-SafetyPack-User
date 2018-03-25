@@ -26,9 +26,6 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
   private static final float ANIMATION_FROM_ALPHA = 0.5f;
   private static final int ANIMATION_TO_ALPHA = 1;
 
-  private boolean isLeftSignalBlinking = false;
-  private boolean isRightButtonBlinking = false;
-
   @BindView(R.id.leftSignalButton)
   ImageButton buttonLeftSignal;
   @BindView(R.id.rightSignalButton)
@@ -36,6 +33,12 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
 
   @Inject
   UserPresenter userPresenter;
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    userPresenter.stopBluetooth();
+  }
 
   @NonNull
   @Override
@@ -69,42 +72,38 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
   }
 
   @Override
-  public void setBlinkingLeftSignal() {
-    stopBlinkingRightSignal();
-    if (isLeftSignalBlinking) {
-      buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left));
-      buttonLeftSignal.clearAnimation();
-      isLeftSignalBlinking = false;
-    } else {
+  public void setBlinkingLeftSignal(boolean shouldBlink) {
+    if (shouldBlink) {
       buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left_green));
       buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right));
       buttonLeftSignal.startAnimation(blinkingAnimation());
-      isLeftSignalBlinking = true;
+    } else {
+      buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left));
+      buttonLeftSignal.clearAnimation();
     }
   }
 
   @Override
-  public void setBlinkingRightSignal() {
-    stopBlinkingLeftSignal();
-    if (isRightButtonBlinking) {
-      buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right));
-      buttonRightSignal.clearAnimation();
-      isRightButtonBlinking = false;
-    } else {
+  public void setBlinkingRightSignal(boolean shouldBlink) {
+    if (shouldBlink) {
       buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right_green));
       buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left));
       buttonRightSignal.startAnimation(blinkingAnimation());
-      isRightButtonBlinking = true;
+    } else {
+      buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right));
+      buttonRightSignal.clearAnimation();
     }
   }
 
-  void stopBlinkingLeftSignal() {
+  @Override
+  public void stopBlinkingLeftSignal() {
     buttonLeftSignal.clearAnimation();
-    isLeftSignalBlinking = false;
+    userPresenter.setShouldLeftSignalBlink(false);
   }
 
-  void stopBlinkingRightSignal() {
+  @Override
+  public void stopBlinkingRightSignal() {
     buttonRightSignal.clearAnimation();
-    isRightButtonBlinking = false;
+    userPresenter.setShouldRightSignalBlink(false);
   }
 }

@@ -6,10 +6,20 @@ import com.xmartlabs.bigbang.ui.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by Bruno on 18/3/2018.
  */
 public class UserPresenter extends BaseMvpPresenter<UserView> {
+  @Getter
+  @Setter
+  private boolean shouldLeftSignalBlink = false;
+  @Getter
+  @Setter
+  private boolean shouldRightSignalBlink = false;
+
   @Inject
   BluetoothController bluetoothController;
 
@@ -17,14 +27,34 @@ public class UserPresenter extends BaseMvpPresenter<UserView> {
   public UserPresenter() { }
 
   void onLeftSignalButtonClicked() {
-    bluetoothController.sendLeftSignalCommand();
     Optional.ofNullable(getView())
-        .executeIfPresent(UserView::setBlinkingLeftSignal);
+        .executeIfPresent(userView -> {
+          changeLeftBlinkingStatus();
+          userView.stopBlinkingRightSignal();
+          userView.setBlinkingLeftSignal(shouldLeftSignalBlink);
+        });
+    bluetoothController.sendLeftSignalCommand(isShouldLeftSignalBlink());
+  }
+
+  private void changeLeftBlinkingStatus() {
+    shouldLeftSignalBlink = !shouldLeftSignalBlink;
   }
 
   void onRightSignalButtonClicked() {
-    bluetoothController.sendRightSignalCommand();
     Optional.ofNullable(getView())
-        .executeIfPresent(UserView::setBlinkingRightSignal);
+        .executeIfPresent(userView -> {
+          changeRightBlinkingStatus();
+          userView.stopBlinkingLeftSignal();
+          userView.setBlinkingRightSignal(shouldRightSignalBlink);
+        });
+    bluetoothController.sendRightSignalCommand(isShouldRightSignalBlink());
+  }
+
+  private void changeRightBlinkingStatus() {
+    shouldRightSignalBlink = !shouldRightSignalBlink;
+  }
+
+  void stopBluetooth() {
+    bluetoothController.stopBluetooth();
   }
 }

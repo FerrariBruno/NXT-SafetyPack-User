@@ -7,6 +7,8 @@ import com.xmartlabs.bigbang.ui.mvp.MvpView;
  */
 
 public interface UserView extends MvpView {
-  void setBlinkingLeftSignal();
-  void setBlinkingRightSignal();
+  void setBlinkingLeftSignal(boolean shouldBlink);
+  void setBlinkingRightSignal(boolean shouldBlink);
+  void stopBlinkingLeftSignal();
+  void stopBlinkingRightSignal();
 }
