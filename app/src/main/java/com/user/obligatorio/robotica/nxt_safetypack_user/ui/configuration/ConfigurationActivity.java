@@ -11,7 +11,6 @@ import com.xmartlabs.bigbang.ui.SingleFragmentActivity;
 /**
  * Created by Bruno on 25/3/2018.
  */
-
 public class ConfigurationActivity extends SingleFragmentActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {

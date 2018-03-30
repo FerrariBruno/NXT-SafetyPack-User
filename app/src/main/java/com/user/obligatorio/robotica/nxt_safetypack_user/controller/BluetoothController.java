@@ -29,7 +29,6 @@ public class BluetoothController {
   BluetoothController() { }
 
   public void connect(@NonNull Intent data) {
-    bluetoothSPP
     bluetoothSPP.connect(data);
   }
 
@@ -53,7 +52,7 @@ public class BluetoothController {
     }
   }
 
-  public void sendLeftSignalDisabledCommand() {
+  private void sendLeftSignalDisabledCommand() {
     bluetoothSPP.send(LEFT_SIGNAL_DISABLED, true);
     Toast.makeText(NXTSafetyPackUserApplication.getContext(),
         "Left signal disabled",
@@ -61,7 +60,7 @@ public class BluetoothController {
         .show();
   }
 
-  public void sendLeftSignalEnabledCommand() {
+  private void sendLeftSignalEnabledCommand() {
     bluetoothSPP.send(LEFT_SIGNAL_ENABLED, true);
     Toast.makeText(NXTSafetyPackUserApplication.getContext(),
         "Left signal enabled",
@@ -77,7 +76,7 @@ public class BluetoothController {
     }
   }
 
-  public void sendRightSignalDisabledCommand() {
+  private void sendRightSignalDisabledCommand() {
     bluetoothSPP.send(RIGHT_SIGNAL_DISABLED, true);
     Toast.makeText(NXTSafetyPackUserApplication.getContext(),
         "Right signal disabled",
@@ -85,7 +84,7 @@ public class BluetoothController {
         .show();
   }
 
-  public void sendRightSignalEnabledCommand() {
+  private void sendRightSignalEnabledCommand() {
     bluetoothSPP.send(RIGHT_SIGNAL_ENABLED, true);
     Toast.makeText(NXTSafetyPackUserApplication.getContext(),
         "Right signal enabled",

@@ -20,12 +20,12 @@
             style="@style/Toolbar"
             >
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:contentDescription="@string/logo_content_description"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/tesla"
                 />
 
         </android.support.v7.widget.Toolbar>
