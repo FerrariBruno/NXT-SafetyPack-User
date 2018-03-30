@@ -1,10 +1,12 @@
-package com.user.obligatorio.robotica.nxt_safetypack_user.ui;
+package com.user.obligatorio.robotica.nxt_safetypack_user.ui.user;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.user.obligatorio.robotica.nxt_safetypack_user.R;
@@ -25,10 +27,13 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
   private static final Duration ANIMATION_DURATION = Duration.ofMillis(600);
   private static final float ANIMATION_FROM_ALPHA = 0.5f;
   private static final int ANIMATION_TO_ALPHA = 1;
+  private static final Duration LOADING_NAME_DURATION = Duration.ofMillis(12000);
 
-  private boolean isLeftSignalBlinking = false;
-  private boolean isRightButtonBlinking = false;
+  @NonNull
+  private final Handler handler = new Handler();
 
+  @BindView(R.id.connectedTo)
+  TextView textViewConnectedTo;
   @BindView(R.id.leftSignalButton)
   ImageButton buttonLeftSignal;
   @BindView(R.id.rightSignalButton)
@@ -36,6 +41,21 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
 
   @Inject
   UserPresenter userPresenter;
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    handler.postDelayed(() -> textViewConnectedTo.setText(String.format("%s: %s",
+        getString(R.string.connected_to),
+        userPresenter.getConnectedDeviceName())),
+        LOADING_NAME_DURATION.toMillis());
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    userPresenter.stopBluetooth();
+  }
 
   @NonNull
   @Override
@@ -69,42 +89,38 @@ public class UserFragment extends BaseMvpFragment<UserView, UserPresenter> imple
   }
 
   @Override
-  public void setBlinkingLeftSignal() {
-    stopBlinkingRightSignal();
-    if (isLeftSignalBlinking) {
-      buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left));
-      buttonLeftSignal.clearAnimation();
-      isLeftSignalBlinking = false;
-    } else {
+  public void setBlinkingLeftSignal(boolean shouldBlink) {
+    if (shouldBlink) {
       buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left_green));
       buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right));
       buttonLeftSignal.startAnimation(blinkingAnimation());
-      isLeftSignalBlinking = true;
+    } else {
+      buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left));
+      buttonLeftSignal.clearAnimation();
     }
   }
 
   @Override
-  public void setBlinkingRightSignal() {
-    stopBlinkingLeftSignal();
-    if (isRightButtonBlinking) {
-      buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right));
-      buttonRightSignal.clearAnimation();
-      isRightButtonBlinking = false;
-    } else {
+  public void setBlinkingRightSignal(boolean shouldBlink) {
+    if (shouldBlink) {
       buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right_green));
       buttonLeftSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_left));
       buttonRightSignal.startAnimation(blinkingAnimation());
-      isRightButtonBlinking = true;
+    } else {
+      buttonRightSignal.setImageDrawable(getResources().getDrawable(R.drawable.ic_turn_signal_right));
+      buttonRightSignal.clearAnimation();
     }
   }
 
-  void stopBlinkingLeftSignal() {
+  @Override
+  public void stopBlinkingLeftSignal() {
     buttonLeftSignal.clearAnimation();
-    isLeftSignalBlinking = false;
+    userPresenter.setShouldLeftSignalBlink(false);
   }
 
-  void stopBlinkingRightSignal() {
+  @Override
+  public void stopBlinkingRightSignal() {
     buttonRightSignal.clearAnimation();
-    isRightButtonBlinking = false;
+    userPresenter.setShouldRightSignalBlink(false);
   }
 }

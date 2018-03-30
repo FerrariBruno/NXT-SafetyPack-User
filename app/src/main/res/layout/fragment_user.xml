@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     >
 
-    <ImageButton
-        android:id="@+id/leftSignalButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/connectedTo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded_shape"
-        android:layout_marginEnd="35dp"
-        android:paddingEnd="3dp"
-        android:paddingStart="3dp"
-        android:src="@drawable/ic_turn_signal_left"
+        android:hint="@string/loading_connected_device"
+        android:textSize="16sp"
+        tools:text="Connected to: "
         />
 
-    <ImageButton
-        android:id="@+id/rightSignalButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded_shape"
-        android:layout_marginStart="35dp"
-        android:paddingEnd="3dp"
-        android:paddingStart="3dp"
-        android:src="@drawable/ic_turn_signal_right"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/leftSignalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_shape"
+            android:layout_marginEnd="35dp"
+            android:paddingEnd="3dp"
+            android:paddingStart="3dp"
+            android:src="@drawable/ic_turn_signal_left"
+            tools:ignore="ContentDescription"
+            />
+
+        <ImageButton
+            android:id="@+id/rightSignalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_shape"
+            android:layout_marginStart="35dp"
+            android:paddingEnd="3dp"
+            android:paddingStart="3dp"
+            android:src="@drawable/ic_turn_signal_right"
+            tools:ignore="ContentDescription"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

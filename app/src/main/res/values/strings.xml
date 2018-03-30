@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">NXT-SafetyPack-User</string>
     <string name="logo_content_description">App Logo</string>
+    <string name="connect">Connect</string>
+    <string name="bluetooth_not_enabled">Bluetooth was not enabled.</string>
+    <string name="connected_to">Connected to</string>
+    <string name="loading_connected_device">Loading connected device…</string>
 </resources>
