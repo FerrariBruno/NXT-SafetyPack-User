@@ -29,6 +29,7 @@ public class BluetoothController {
   BluetoothController() { }
 
   public void connect(@NonNull Intent data) {
+    bluetoothSPP
     bluetoothSPP.connect(data);
   }
 
